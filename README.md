@@ -11,7 +11,7 @@ This plugin supports updates from the `main` branch using the [WordPress GitHub 
 ## Posts
 Instead of extending the default WordPress Post object, Epogee Core provides a robust and uniform super-class which standardizes the data format of posts, pages, and other custom post types.
 
-### Get Posts
+### Get Post
 Use the function `ep_get_post($post)` to get a fully-formed post object. It is recommended that the global `$post` object is not overwritten as this can cause problems with other plugins and WordPress features. See examples below, the function can be used within your theme `functions.php`, `single.php`, `page.php`, or any other template file. Typically it is placed at the top of a template before the call to `get_header()`.
 
 Getting `$pagedata` from the global `$post` object including all ACF custom fields.
@@ -22,6 +22,27 @@ $pagedata = ep_get_post($post, false, false, true);
 Getting `$article` from the global `$post` object including all meta, terms, and fields.
 ```php
 $article = ep_get_post($post, true, true, true);
+```
+
+### Get Posts
+Fully-formed post objects can be retrieved directly using the function `ep_get_posts($args)` which supports the same options as the native `get_posts()`.
+
+Get a collection of fully-formed `$articles` with query arguments.
+```php
+$articles = ep_get_posts([
+  'post_type' => 'post',
+  'post_status' => 'publish',
+  'posts_per_page' => -1
+]);
+```
+
+### Format Posts
+Sometimes there is already an array of WP Posts, this can be formatted to fully-formed post objects by using the `ep_format_posts($posts)` function.
+
+Get a collection of fully-formed `$posts` from `WP_Query`.
+```php
+$query = new WP_Query($args);
+$posts = ep_format_posts($query->posts);
 ```
 
 ## Changelog
