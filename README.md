@@ -45,6 +45,12 @@ $query = new WP_Query($args);
 $posts = ep_format_posts($query->posts);
 ```
 
+### Filter Posts
+All Epogee Core post functions support various filters to manage the `$terms`, `$meta`, and `$fields` that will be returned in addition to the final fully-formed post object itself.
+
+* `ep/posts/terms` - Applies to `$terms` for all posts.
+* `ep/posts/terms/{$post_type}` - Applies to `$terms` for a custom post type.
+
 ## Changelog
 
 ### 1.1.0 (current)
