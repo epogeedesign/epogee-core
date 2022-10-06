@@ -1,0 +1,79 @@
+{
+    "packages": [
+        {
+            "name": "imgix/imgix-php",
+            "version": "3.3.1",
+            "version_normalized": "3.3.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/imgix/imgix-php.git",
+                "reference": "ddb7e427b601bc3534f108180c81292d5b29bc39"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/imgix/imgix-php/zipball/ddb7e427b601bc3534f108180c81292d5b29bc39",
+                "reference": "ddb7e427b601bc3534f108180c81292d5b29bc39",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "*"
+            },
+            "time": "2021-03-25T15:10:34+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-0": {
+                    "Imgix\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-2-Clause"
+            ],
+            "description": "A PHP client library for generating URLs with imgix.",
+            "keywords": [
+                "imgix"
+            ],
+            "support": {
+                "issues": "https://github.com/imgix/imgix-php/issues",
+                "source": "https://github.com/imgix/imgix-php/tree/3.3.1"
+            },
+            "install-path": "../imgix/imgix-php"
+        },
+        {
+            "name": "radishconcepts/wordpress-github-plugin-updater",
+            "version": "dev-master",
+            "version_normalized": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/radishconcepts/WordPress-GitHub-Plugin-Updater.git",
+                "reference": "43d2ec0fb5830ac60054519522897b3f8b0fb646"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/radishconcepts/WordPress-GitHub-Plugin-Updater/zipball/43d2ec0fb5830ac60054519522897b3f8b0fb646",
+                "reference": "43d2ec0fb5830ac60054519522897b3f8b0fb646",
+                "shasum": ""
+            },
+            "time": "2020-10-05T19:46:09+00:00",
+            "default-branch": true,
+            "type": "library",
+            "installation-source": "dist",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "description": "This class is meant to be used with your Github hosted WordPress plugins. The purpose of the class is to allow your WordPress plugin to be updated whenever you push out a new version of your plugin; similarly to the experience users know and love with the WordPress.org plugin repository.",
+            "homepage": "https://github.com/radishconcepts/WordPress-GitHub-Plugin-Updater",
+            "support": {
+                "issues": "https://github.com/radishconcepts/WordPress-GitHub-Plugin-Updater/issues",
+                "source": "https://github.com/radishconcepts/WordPress-GitHub-Plugin-Updater/tree/master"
+            },
+            "install-path": "../radishconcepts/wordpress-github-plugin-updater"
+        }
+    ],
+    "dev": true,
+    "dev-package-names": []
+}

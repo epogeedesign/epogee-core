@@ -1,0 +1,95 @@
+#wpbody {
+}
+
+	#wpbody .ep-wrap {
+	}
+
+		#wpbody .ep-wrap h1 {
+			font-size: 2.3em;
+		}
+
+			#wpbody .ep-wrap h1 span {
+				display: inline-block;
+				vertical-align: middle;
+			}
+
+			#wpbody .ep-wrap h1 .ep-logo {
+				width: 50px;
+				height: 50px;
+				margin-right: 10px;
+				background-image: url('../img/epogee-logo-round.png');
+				background-size: contain;
+				background-repeat: no-repeat;
+				background-position: center;
+			}
+
+		#wpbody .ep-wrap .ep-form {
+			background-color: #FFF;
+			padding: 5px 15px;
+			border-bottom: 1px #e5e5e5 solid;
+			border-left: 1px #e5e5e5 solid;
+			border-right: 1px #e5e5e5 solid;
+		}
+
+			#wpbody .ep-wrap .ep-form h2 {
+				font-size: 1.5em;
+				margin-bottom: .5em;
+			}
+
+			#wpbody .ep-wrap .ep-form .form-table {
+				margin-bottom: 50px;
+			}
+
+				#wpbody .ep-wrap .ep-form .form-table tr {
+					border: 1px #e5e5e5 solid;
+				}
+
+					#wpbody .ep-wrap .ep-form .form-table tr th {
+						padding-left: 10px;
+						width: 150px;
+					}
+
+					#wpbody .ep-wrap .ep-form .form-table tr td .ep-field.ep-field-text p:first-of-type,
+					#wpbody .ep-wrap .ep-form .form-table tr td .ep-field.ep-field-select p:first-of-type {
+						margin-top: 10px;
+					}
+
+					#wpbody .ep-wrap .ep-form .form-table tr td .ep-field.ep-field-checkbox {
+						display: flex;
+						flex-direction: row;
+						align-items: flex-start;
+					}
+
+					#wpbody .ep-wrap .ep-form .form-table tr td .ep-field.ep-field-checkbox input[type="checkbox"],
+					#wpbody .ep-wrap .ep-form .form-table tr td .ep-field.ep-field-checkbox input[type="radio"] {
+						width: 1.5625rem;
+						height: 1.5625rem;
+						margin-top: 4px;
+						margin-right: 15px;
+					}
+
+					#wpbody .ep-wrap .ep-form .form-table tr td .ep-field.ep-field-checkbox input[type="checkbox"]:checked::before {
+						width: 1.875rem;
+						height: 1.875rem;
+						margin: -.1875rem -.3125rem;
+					}
+
+			#wpbody .ep-wrap .ep-form ul {
+				list-style-type: disc;
+				padding-inline-start: 40px;
+			}
+
+@media screen and (max-width: 782px) {
+	#wpbody .ep-wrap .nav-tab-wrapper {
+		border-bottom: 1px solid #ccc;
+	}
+
+	#wpbody .ep-wrap .ep-form .form-table tr th {
+		width: auto;
+		padding: 15px 10px;
+	}
+
+	#wpbody .ep-wrap .ep-form .form-table tr td {
+		padding: 4px 10px 15px;
+	}
+}

@@ -1,0 +1,30 @@
+.ep-icon-select2-row {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+.ep-icon-select2-row .svg-icon {
+	position: relative;
+	display: inline-block;
+	width: 16px;
+	margin-right: 5px;
+}
+
+.select2-results__option .ep-icon-select2-row .svg-icon {
+	width: 24px;
+}
+
+.ep-icon-select2-row .svg-icon:before {
+	content: '';
+	display: block;
+	padding-bottom: 100%;
+}
+
+.ep-icon-select2-row .svg-icon svg {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}

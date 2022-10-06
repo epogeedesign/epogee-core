@@ -1,0 +1,18 @@
+{
+    "name": "epogeedesign/epogee-core",
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/radishconcepts/wordpress-github-plugin-updater.git"
+        }
+    ],
+    "require": {
+        "imgix/imgix-php": "^3.3",
+        "radishconcepts/wordpress-github-plugin-updater": "dev-master"
+    },
+    "autoload": {
+        "classmap": [
+            "vendor/radishconcepts/wordpress-github-plugin-updater/updater.php"
+        ]
+    }
+}
