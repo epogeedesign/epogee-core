@@ -23,3 +23,19 @@ Getting `$article` from the global `$post` object including all meta, terms, and
 ```php
 $article = ep_get_post($post, true, true, true);
 ```
+
+## Changelog
+
+### 1.1.0 (current)
+* Add GitHub plugin updates
+
+### 1.0.1
+* Add debug functions: `ep_return_json()`, `ep_check_debug()`
+* Add template functions: `ep_locate_template()`, `ep_parse_args()`, `ep_build_html_attributes()`
+* Add enqueue functions: `ep_enqueue_style()`, `ep_enqueue_script()`
+* Add post function `ep_post_breadcrumbs()`
+* Add Yoast function `ep_yoast_set_meta()`
+* Add filters to `ep_get_post()`
+
+### 1.0.0
+* Add post functions: `ep_get_post()`, `ep_get_posts()`, `ep_format_posts()`
