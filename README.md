@@ -14,12 +14,21 @@ Instead of extending the default WordPress Post object, Epogee Core provides a r
 ### Get Post
 Use the function `ep_get_post($post)` to get a fully-formed post object. It is recommended that the global `$post` object is not overwritten as this can cause problems with other plugins and WordPress features. See examples below, the function can be used within your theme `functions.php`, `single.php`, `page.php`, or any other template file. Typically it is placed at the top of a template before the call to `get_header()`.
 
-Getting `$pagedata` from the global `$post` object including all ACF custom fields.
+| Parameter | Type | Description |
+| --------- | ---- | ----------- |
+| `$post` | `WP_Post` &#124; `int` | WordPress post object or post id. |
+| `$terms` | `bool` &#124; `string[]` | Optional, default `false`. Taxonomy slugs to include. |
+| `$meta` | `bool` &#124; `string[]` | Optional, default `false`. Post Meta keys to include. |
+| `$fields` | `bool` &#124; `string[]` | Optional, default `false`. ACF custom field names to include. |
+
+Examples:
+
+* Getting `$pagedata` from the global `$post` object including all ACF custom fields.
 ```php
 $pagedata = ep_get_post($post, false, false, true);
 ```
 
-Getting `$article` from the global `$post` object including all meta, terms, and fields.
+* Getting `$article` from the global `$post` object including all meta, terms, and fields.
 ```php
 $article = ep_get_post($post, true, true, true);
 ```
@@ -27,7 +36,7 @@ $article = ep_get_post($post, true, true, true);
 ### Get Posts
 Fully-formed post objects can be retrieved directly using the function `ep_get_posts($args)` which supports the same options as the native `get_posts()`.
 
-Get a collection of fully-formed `$articles` with query arguments.
+* Get a collection of fully-formed `$articles` with query arguments.
 ```php
 $articles = ep_get_posts([
   'post_type' => 'post',
@@ -39,7 +48,7 @@ $articles = ep_get_posts([
 ### Format Posts
 Sometimes there is already an array of WP Posts, this can be formatted to fully-formed post objects by using the `ep_format_posts($posts)` function.
 
-Get a collection of fully-formed `$posts` from `WP_Query`.
+* Get a collection of fully-formed `$posts` from `WP_Query`.
 ```php
 $query = new WP_Query($args);
 $posts = ep_format_posts($query->posts);
@@ -59,14 +68,16 @@ Fully-formed post filters:
 * `ep/posts/get` - Applies to `$post` for all posts.
 * `ep/posts/get/{$type}` - Applies to `$post` for a custom post type.
 
-Filter `$terms` for all `post` posts to include default `category` taxonomy.
+Examples:
+
+* Filter `$terms` for all `post` posts to include default `category` taxonomy.
 ```php
 add_filter('ep/posts/terms/post', function ($terms, $post) {
   return ['category'];
 }, 10, 2);
 ```
 
-Filter fully-formed `$post` to customize the object for an `event` custom post type.
+* Filter fully-formed `$post` to customize the object for an `event` custom post type.
 ```php
 add_filter('ep/posts/get/event', function ($post) {
   // Get event dates
