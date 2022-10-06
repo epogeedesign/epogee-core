@@ -49,7 +49,37 @@ $posts = ep_format_posts($query->posts);
 All Epogee Core post functions support various filters to manage the `$terms`, `$meta`, and `$fields` that will be returned in addition to the final fully-formed post object itself.
 
 * `ep/posts/terms` - Applies to `$terms` for all posts.
-* `ep/posts/terms/{$post_type}` - Applies to `$terms` for a custom post type.
+* `ep/posts/terms/{$type}` - Applies to `$terms` for a custom post type.
+* `ep/posts/meta` - Applies to `$meta` for all posts.
+* `ep/posts/meta/{$type}` - Applies to `$meta` for a custom post type.
+* `ep/posts/fields` - Applies to `$fields` for all posts.
+* `ep/posts/fields/{$type}` - Applies to `$fields` for a custom post type.
+
+Fully-formed post filters:
+* `ep/posts/get` - Applies to `$post` for all posts.
+* `ep/posts/get/{$type}` - Applies to `$post` for a custom post type.
+
+Filter `$terms` for all `post` posts to include default `category` taxonomy.
+```php
+add_filter('ep/posts/terms/post', function ($terms, $post) {
+  return ['category'];
+}, 10, 2);
+```
+
+Filter fully-formed `$post` to customize the object for an `event` custom post type.
+```php
+add_filter('ep/posts/get/event', function ($post) {
+  // Get event dates
+  $start_date = strtotime(get_post_meta($post->id, 'start_date', true));
+  $end_date = strtotime(get_post_meta($post->id, 'end_date', true));
+
+  // Add data to $post
+  $post->start_date_formatted = date('F j, Y', $start_date);
+  $post->end_date_formatted = date('M j, Y', $end_date);
+
+  return $post;
+}, 10, 1);
+```
 
 ## Changelog
 
