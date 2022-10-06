@@ -11,6 +11,28 @@ This plugin supports updates from the `main` branch using the [WordPress GitHub 
 ## Posts
 Instead of extending the default WordPress Post object, Epogee Core provides a robust and uniform super-class which standardizes the data format of posts, pages, and other custom post types.
 
+### Post Object
+
+| Parameter | Type | Description |
+| --------- | ---- | ----------- |
+| `id` | `int` | ID of the post mapped from `ID`. |
+| `parent` | `int` | ID of the post's parent mapped from `post_parent`. |
+| `author` | `int` | Author of the post mapped from `post_author`. |
+| `type` | `string` | Name of the post type mapped from `post_type`. |
+| `status` | `string` | Status of the post mapped from `post_status`. |
+| `slug` | `string` | Url slug of the post mapped from `post_name`. |
+| `title` | `string` | Title of the post mapped from `post_title`. |
+| `order` | `int` | Order of the post mapped from `menu_order`. |
+| `date` | `int` | Timestamp of the post mapped from `post_date`. |
+| `modified` | `int` | Timestamp of the post mapped from `post_modified`. |
+| `content` | `string` | Content of the post mapped from `post_content` with `the_content` filter applied. |
+| `excerpt` | `string` | Excerpt of the post mapped from `post_excerpt` with `the_excerpt` filter applied. |
+| `url` | `string` | Relative URL of the post using `get_permalink` and `wp_make_link_relative`. |
+| `image` | `string` | Full URL of Featured Image of the post set as `_thumbnail_id` in the post meta. |
+| `terms` | `array` | Optional collection of `$terms`. |
+| `meta` | `array` | Optional collection of `$meta`. |
+| `fields` | `array` | Optional collection of `$fields`. |
+
 ### Get Post
 Use the function `ep_get_post($post)` to get a fully-formed post object. It is recommended that the global `$post` object is not overwritten as this can cause problems with other plugins and WordPress features. See examples below, the function can be used within your theme `functions.php`, `single.php`, `page.php`, or any other template file. Typically it is placed at the top of a template before the call to `get_header()`.
 
