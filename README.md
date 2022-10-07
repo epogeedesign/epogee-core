@@ -1,6 +1,18 @@
 # Epogee Core
 Enhanced functions and settings for WordPress
 
+- [Installation](#installation)
+- [Posts](#posts)
+  - [Post Object](#post-object)
+  - [Get Post](#get-post)
+  - [Get Posts](#get-posts)
+  - [Format Posts](#format-posts)
+  - [Filter Posts](#filter-posts)
+- [Templates](#templates)
+  - [Locate Template](#locate-template)
+  - [Parse Arguments](#parse-arguments)
+- [Changelog](#changelog)
+
 ## Installation
 The easiest method is by using the [Download ZIP](https://github.com/epogeedesign/epogee-core/archive/refs/heads/main.zip) link. Rename the file to `epogee-core.zip` and install the plugin normally within WordPress.
 
@@ -113,6 +125,32 @@ add_filter('ep/posts/get/event', function ($post) {
   return $post;
 }, 10, 1);
 ```
+
+## Templates
+WordPress template functions are a bit all over the place. Epogee Core provides standardized template functions which can be extended and filtered.
+
+### Locate Template
+
+| Parameter | Type | Description |
+| --------- | ---- | ----------- |
+| `$templates` | `string` &#124; `string[]` | Template(s) file to search for, relative to the theme root, in order. |
+| `$load` | `bool` | Optional, default `false`. If true the template file will be loaded if it is found. |
+| `$args` | `array` | Optional, default `[]`. Additional arguments passed to the template. |
+
+* Loading `parts/template.php` located in the theme root with `$args`.
+```php
+ep_locate_template('parts/template', true, [
+  'title' => 'My Awesome Website'
+]);
+```
+
+### Parse Arguments
+Extend defaults for templates and other functions using `ep_parse_args($args, $defaults)` similar to the built-in `parse_args()`. The main differences are this function supports deep and nested arrays with logic to intelligently merge and replace arguments in the return.
+
+| Parameter | Type | Description |
+| --------- | ---- | ----------- |
+| `$args` | `array` | Value to merge with $defaults. |
+| `$defaults` | `array` | Optional, default `[]`. Array that serves as the defaults. |
 
 ## Changelog
 
