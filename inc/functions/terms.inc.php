@@ -1,18 +1,44 @@
 <?php
 
+/**
+ * Return a fully formed term object.
+ *
+ * @param WP_Term|int $term The base term object or id.
+ * @param mixed $meta Optionally include meta in term object.
+ * @param mixed $fields Optionally include ACF fields in term object.
+ * 
+ * @return Ep_Abstract_Term Full formed term object.
+ */
 function ep_get_term($term, $meta = false, $fields = false) {
+	// Get WP_Term object if supplied with id
 	if (is_numeric($term)) {
 		$term = get_term($term);
 	}
 
+	// Check if term was found
+	if (!$term)
+		return false;
+
+	// Filter term meta
+	$meta = apply_filters('ep/terms/meta', $meta, $term);
+	$meta = apply_filters('ep/terms/meta/' . $term->taxonomy, $meta, $term);
+
+	// Filter term fields
+	$fields = apply_filters('ep/terms/fields', $fields, $term);
+	$fields = apply_filters('ep/terms/fields/' . $term->taxonomy, $fields, $term);
+
+	// Get fully formed term object
 	$term = new Ep_Abstract_Term($term, $meta, $fields);
 
+	// Check if term object is valid
 	if (!$term->id)
 		return false;
 
+	// Filter the fully formed term object
 	$term = apply_filters('ep/terms/get', $term, $meta, $fields);
 	$term = apply_filters('ep/terms/get/' . $term->taxonomy, $term, $meta, $fields);
 	
+	// Return fully formed term object
 	return $term;
 }
 
@@ -21,18 +47,44 @@ function ep_get_term($term, $meta = false, $fields = false) {
  * 
  * @param string|array $args Optional. Array or string of arguments. See WP_Term_Query::__construct() for information on accepted arguments. Default empty.
  * 
- * @return Ep_Abstract_Term[]
+ * @return Ep_Abstract_Term[] Array of fully formed term objects.
  */
 function ep_get_terms($args) {
-    $terms = get_terms($args);
+	// Get WP_Term collection using query args
+	$terms = get_terms($args);
 
-    $meta = (!empty($args['include_meta']));
-    $fields = (!empty($args['include_fields']));
+	// Check if terms were found
+	if ((!$terms) || (is_wp_error($terms)))
+		return false;
 
-    foreach ($terms as &$term)
-        $term = new Ep_Abstract_Term($term, $meta, $fields);
+	// Apply additional query args
+	$meta = isset($args['include_meta']) ? $args['include_meta'] : false;
+	$fields = isset($args['include_fields']) ? $args['include_fields'] : false;
 
-    return $terms;
+	// Map and return fully formed term objects
+	return array_map(function ($term) use ($meta, $fields) {
+		return ep_get_term($term, $meta, $fields);
+	}, $terms);
+}
+
+/**
+ * Retrieves an array of fully formed terms from terms array.
+ * 
+ * @param WP_Term[] $terms Array of term objects.
+ * @param mixed $meta Optionally include meta in term object.
+ * @param mixed $fields Optionally include ACF fields in term object.
+ * 
+ * @return Ep_Abstract_Term[] Array of fully formed term objects.
+ */
+function ep_format_terms($terms, $meta = false, $fields = false) {
+	// Check if terms were supplied
+	if (empty($terms) || empty($terms[0]))
+		return false;
+
+	// Map and return fully formed term objects
+	return array_map(function ($term) use ($meta, $fields) {
+		return ep_get_term($term, $meta, $fields);
+	}, $terms);
 }
 
 function ep_get_register_taxonomy_labels($type, $slbl, $plbl, $args = []) {

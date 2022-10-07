@@ -8,7 +8,7 @@
  * @param mixed $meta Optionally include meta in post object.
  * @param mixed $fields Optionally include ACF fields in post object.
  * 
- * @return Ep_Abstract_Post Full formed post object.
+ * @return Ep_Abstract_Post Fully formed post object.
  */
 function ep_get_post($post, $terms = false, $meta = false, $fields = false) {
 	// Get WP_Post object if supplied with id
@@ -43,6 +43,7 @@ function ep_get_post($post, $terms = false, $meta = false, $fields = false) {
 	$post = apply_filters('ep/posts/get', $post);
 	$post = apply_filters('ep/posts/get/' . $post->type, $post);
 	
+	// Return fully formed post object
 	return $post;
 }
 
@@ -54,21 +55,22 @@ function ep_get_post($post, $terms = false, $meta = false, $fields = false) {
  * @return Ep_Abstract_Post[] Array of post fully formed objects.
  */
 function ep_get_posts($args) {
-	$args = apply_filters('ep/posts/args', $args);
-
+	// Get WP_Post collection using query args
 	$posts = get_posts($args);
 
+	// Check if posts were found
 	if ((!$posts) || (is_wp_error($posts)))
 		return false;
 
+	// Apply additional query args
 	$terms = isset($args['include_terms']) ? $args['include_terms'] : false;
 	$meta = isset($args['include_meta']) ? $args['include_meta'] : false;
 	$fields = isset($args['include_fields']) ? $args['include_fields'] : false;
 
-	foreach ($posts as &$post)
-		$post = ep_get_post($post, $terms, $meta, $fields);
-
-	return apply_filters('ep/posts/return', $posts);
+	// Map and return fully formed post objects
+	return array_map(function ($post) use ($terms, $meta, $fields) {
+		return ep_get_post($post, $terms, $meta, $fields);
+	}, $posts);
 }
 
 /**
@@ -82,9 +84,11 @@ function ep_get_posts($args) {
  * @return Ep_Abstract_Post[] Array of post fully formed objects.
  */
 function ep_format_posts($posts, $terms = false, $meta = false, $fields = false) {
+	// Check if posts were supplied
 	if (empty($posts) || empty($posts[0]))
 		return false;
 
+	// Map and return fully formed post objects
 	return array_map(function ($post) use ($terms, $meta, $fields) {
 		return ep_get_post($post, $terms, $meta, $fields);
 	}, $posts);
