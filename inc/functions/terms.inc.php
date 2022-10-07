@@ -46,20 +46,18 @@ function ep_get_term($term, $meta = false, $fields = false) {
  * Retrieve the fully formed terms in a given taxonomy or list of taxonomies.
  * 
  * @param string|array $args Optional. Array or string of arguments. See WP_Term_Query::__construct() for information on accepted arguments. Default empty.
+ * @param mixed $meta Optionally include meta in term object.
+ * @param mixed $fields Optionally include ACF fields in term object.
  * 
  * @return Ep_Abstract_Term[] Array of fully formed term objects.
  */
-function ep_get_terms($args) {
+function ep_get_terms($args, $meta = false, $fields = false) {
 	// Get WP_Term collection using query args
 	$terms = get_terms($args);
 
 	// Check if terms were found
 	if ((!$terms) || (is_wp_error($terms)))
 		return false;
-
-	// Apply additional query args
-	$meta = isset($args['include_meta']) ? $args['include_meta'] : false;
-	$fields = isset($args['include_fields']) ? $args['include_fields'] : false;
 
 	// Map and return fully formed term objects
 	return array_map(function ($term) use ($meta, $fields) {

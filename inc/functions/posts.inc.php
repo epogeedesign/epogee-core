@@ -51,21 +51,19 @@ function ep_get_post($post, $terms = false, $meta = false, $fields = false) {
  * Retrieves an array of fully formed posts matching the given criteria.
  * 
  * @param array $args Arguments to retrieve posts. See WP_Query::parse_query() for all available arguments.
+ * @param mixed $terms Optionally include terms in post object.
+ * @param mixed $meta Optionally include meta in post object.
+ * @param mixed $fields Optionally include ACF fields in post object.
  * 
  * @return Ep_Abstract_Post[] Array of post fully formed objects.
  */
-function ep_get_posts($args) {
+function ep_get_posts($args, $terms = false, $meta = false, $fields = false) {
 	// Get WP_Post collection using query args
 	$posts = get_posts($args);
 
 	// Check if posts were found
 	if ((!$posts) || (is_wp_error($posts)))
 		return false;
-
-	// Apply additional query args
-	$terms = isset($args['include_terms']) ? $args['include_terms'] : false;
-	$meta = isset($args['include_meta']) ? $args['include_meta'] : false;
-	$fields = isset($args['include_fields']) ? $args['include_fields'] : false;
 
 	// Map and return fully formed post objects
 	return array_map(function ($post) use ($terms, $meta, $fields) {
