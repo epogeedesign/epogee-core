@@ -10,6 +10,8 @@ Enhanced functions and settings for WordPress
   - [Filter Posts](#filter-posts)
 - [Terms](#terms)
   - [Term Object](#term-object)
+  - [Get Term](#get-term)
+  - [Get Terms](#get-terms)
 - [Templates](#templates)
   - [Locate Template](#locate-template)
   - [Parse Arguments](#parse-arguments)
@@ -59,18 +61,18 @@ Use the function `ep_get_post($post)` to get a fully-formed post object. It is r
 
 Examples:
 
-* Getting `$pagedata` from the global `$post` object including all ACF custom fields.
+* Getting `$pagedata` on `page.php` from the global `$post` object including all ACF custom fields.
 ```php
 $pagedata = ep_get_post($post, false, false, true);
 ```
 
-* Getting `$article` from the global `$post` object including all meta, terms, and fields.
+* Getting `$article` on `single.php` from the global `$post` object including all meta, terms, and fields.
 ```php
 $article = ep_get_post($post, true, true, true);
 ```
 
 ### Get Posts
-Fully-formed post objects can be retrieved directly using the function `ep_get_posts($args)` which supports the same options as the native `get_posts()`.
+Fully-formed post objects can be retrieved directly using the function `ep_get_posts($args)` which supports the same options as the native `get_posts()`. In addition to the base options, `$args` supports the following extra properties
 
 * Get a collection of fully-formed `$articles` with query arguments.
 ```php
@@ -147,6 +149,32 @@ Provides a super-class extending the default WordPress Term object.
 | `count` | `int` | Amount of posts using the current term mapped from `count`. |
 | `meta` | `array` | Optional collection of `$meta`. |
 | `fields` | `array` | Optional collection of `$fields`. |
+
+### Get Term
+Use the function `ep_get_term($term)` to get a fully-formed term object. See examples below, the function can be used within your theme `functions.php`, `taxonomy.php`, `index.php`, or any other template file. Typically it is placed at the top of a template before the call to `get_header()`.
+
+| Parameter | Type | Description |
+| --------- | ---- | ----------- |
+| `$term` | `WP_Term` &#124; `int` | WordPress term object or term id. |
+| `$meta` | `bool` &#124; `string[]` | Optional, default `false`. Post Meta keys to include. |
+| `$fields` | `bool` &#124; `string[]` | Optional, default `false`. ACF custom field names to include. |
+
+* Getting `$category` on `taxonomy.php` or `index.php` using `get_queried_object_id`.
+```php
+$category = ep_get_term(get_queried_object_id());
+```
+
+### Get Terms
+Fully-formed term objects can be retrieved directly using the function `ep_get_terms($args)` which supports the same options as the native `get_terms()`.
+
+* Get a collection of fully-formed `$categories` with query arguments.
+```php
+$categories = ep_get_terms([
+  'taxonomy' => 'category',
+  'orderby' => 'name',
+  'order' => 'ASC'
+]);
+```
 
 ## Templates
 WordPress template functions are a bit all over the place. Epogee Core provides standardized template functions which can be extended and filtered.
