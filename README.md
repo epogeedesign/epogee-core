@@ -8,6 +8,8 @@ Enhanced functions and settings for WordPress
   - [Get Posts](#get-posts)
   - [Format Posts](#format-posts)
   - [Filter Posts](#filter-posts)
+- [Terms](#terms)
+  - [Term Object](#term-object)
 - [Templates](#templates)
   - [Locate Template](#locate-template)
   - [Parse Arguments](#parse-arguments)
@@ -125,6 +127,26 @@ add_filter('ep/posts/get/event', function ($post) {
   return $post;
 }, 10, 1);
 ```
+
+## Terms
+Provides a super-class extending the default WordPress Term object.
+
+### Term Object
+
+| Parameter | Type | Description |
+| --------- | ---- | ----------- |
+| `id` | `int` | ID of the term mapped from `term_id`. |
+| `parent` | `int` | ID of the term's parent mapped from `parent`. |
+| `slug` | `string` | URL slug of the term mapped from `slug`. |
+| `name` | `string` | Name of the term mapped from `name`. |
+| `description` | `string` | Description of the term mapped from `description`. |
+| `group` | `string` | Group of the term mapped from `group`. |
+| `taxonomy` | `string` | Taxonomy of the term mapped from `taxonomy`. |
+| `taxonomyId` | `int` | ID of the Taxonomy of the term mapped from `term_taxonomy_id`. |
+| `url` | `string` | Relative URL of the term using `get_term_link` and `wp_make_link_relative`. |
+| `count` | `int` | Amount of posts using the current term mapped from `count`. |
+| `meta` | `array` | Optional collection of `$meta`. |
+| `fields` | `array` | Optional collection of `$fields`. |
 
 ## Templates
 WordPress template functions are a bit all over the place. Epogee Core provides standardized template functions which can be extended and filtered.
