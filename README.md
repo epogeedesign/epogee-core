@@ -221,6 +221,19 @@ Extend defaults for templates and other functions using `ep_parse_args($args, $d
 | `$args` | `array` | Value to merge with $defaults. |
 | `$defaults` | `array` | Optional, default `[]`. Array that serves as the defaults. |
 
+## Scripts
+Using the `ep_enqueue_style()` and `ep_enqueue_script()` functions will automatically add the last modified date of the file as the version argument. These functions are also based on the theme root and check that the intended style or script file actually exists.
+
+### Enqueue Style
+The `ep_enqueue_style()` function takes arguments very similar to the built-in `wp_enqueue_style()`.
+
+| Parameter | Type | Description |
+| --------- | ---- | ----------- |
+| `$handle` | `string` | Name of the stylesheet. Should be unique. |
+| `$src` | `string` | Path to stylesheet relative to the theme directory. |
+| `$deps` | `string[]` |  Optional, default `[]`. An array of registered stylesheet handles on which this stylesheet depends. |
+| `$media` | `string` | Optional, default `all`. The media for which this stylesheet has been defined. |
+
 ## Changelog
 
 ### 1.1.0 (current)
