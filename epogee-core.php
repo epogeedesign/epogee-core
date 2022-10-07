@@ -1,11 +1,12 @@
 <?php
-
-/*
-Plugin Name:  Epogee Core
-Description:  Enhanced functions and settings for WordPress.
-Version:      1.1.0
-Author URI:   https://epogeedesign.com/
-*/
+/**
+ * Plugin Name:  Epogee Core
+ * Plugin URI:   https://github.com/epogeedesign/epogee-core
+ * Description:  Enhanced functions and settings for WordPress.
+ * Version:      1.1.0
+ * Author:       Epogee Design
+ * Author URI:   https://epogeedesign.com/
+ */
 
 $ep_folder = dirname(__FILE__);
 
