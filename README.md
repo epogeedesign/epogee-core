@@ -74,6 +74,13 @@ $article = ep_get_post($post, true, true, true);
 ### Get Posts
 Fully-formed post objects can be retrieved directly using the function `ep_get_posts($args)` which supports the same options as the native `get_posts()`. In addition to the base options, `$args` supports the following extra properties
 
+| Parameter | Type | Description |
+| --------- | ---- | ----------- |
+| `$args` | `array` | [WP_Query](https://developer.wordpress.org/reference/classes/WP_Query/parse_query) args. |
+| `$terms` | `bool` &#124; `string[]` | Optional, default `false`. Taxonomy slugs to include. |
+| `$meta` | `bool` &#124; `string[]` | Optional, default `false`. Post Meta keys to include. |
+| `$fields` | `bool` &#124; `string[]` | Optional, default `false`. ACF custom field names to include. |
+
 * Get a collection of fully-formed `$articles` with query arguments.
 ```php
 $articles = ep_get_posts([
@@ -86,10 +93,22 @@ $articles = ep_get_posts([
 ### Format Posts
 Sometimes there is already an array of WP Posts, this can be formatted to fully-formed post objects by using the `ep_format_posts($posts)` function.
 
+| Parameter | Type | Description |
+| --------- | ---- | ----------- |
+| `$posts` | `int[]` &#124; `WP_Post[]` | Array of post ids or [WP_Post](https://developer.wordpress.org/reference/classes/wp_post) objects. |
+| `$terms` | `bool` &#124; `string[]` | Optional, default `false`. Taxonomy slugs to include. |
+| `$meta` | `bool` &#124; `string[]` | Optional, default `false`. Post Meta keys to include. |
+| `$fields` | `bool` &#124; `string[]` | Optional, default `false`. ACF custom field names to include. |
+
 * Get a collection of fully-formed `$posts` from `WP_Query`.
 ```php
 $query = new WP_Query($args);
 $posts = ep_format_posts($query->posts);
+```
+
+* Get a collection of fully-formed `$posts` from ACF relationship field.
+```php
+$posts = ep_format_posts(get_field('my_favorite_posts', 'option'));
 ```
 
 ### Filter Posts
@@ -206,6 +225,8 @@ Extend defaults for templates and other functions using `ep_parse_args($args, $d
 
 ### 1.1.0 (current)
 * Add GitHub plugin updates
+* Add term function `ep_format_terms()`
+* Cleanup term and post functions
 
 ### 1.0.1
 * Add debug functions: `ep_return_json()`, `ep_check_debug()`
@@ -217,3 +238,4 @@ Extend defaults for templates and other functions using `ep_parse_args($args, $d
 
 ### 1.0.0
 * Add post functions: `ep_get_post()`, `ep_get_posts()`, `ep_format_posts()`
+* Add term functions `ep_get_term()`, `ep_get_terms()`
