@@ -15,6 +15,9 @@ Enhanced functions and settings for WordPress
 - [Templates](#templates)
   - [Locate Template](#locate-template)
   - [Parse Arguments](#parse-arguments)
+- [Scripts](#scripts)
+  - [Enqueue Style](#enqueue-style)
+  - [Enqueue Script](#enqueue-script)
 - [Changelog](#changelog)
 
 ## Installation
@@ -233,6 +236,27 @@ The `ep_enqueue_style()` function takes arguments very similar to the built-in `
 | `$src` | `string` | Path to stylesheet relative to the theme directory. |
 | `$deps` | `string[]` |  Optional, default `[]`. An array of registered stylesheet handles on which this stylesheet depends. |
 | `$media` | `string` | Optional, default `all`. The media for which this stylesheet has been defined. |
+
+* Enqueue a stylesheet located at `assets/styles.css` within your theme directory.
+```php
+ep_enqueue_style('theme-styles', 'assets/styles.css');
+```
+
+### Enqueue Script
+The `ep_enqueue_script()` function takes arguments very similar to the built-in `wp_enqueue_script()`.
+
+| Parameter | Type | Description |
+| --------- | ---- | ----------- |
+| `$handle` | `string` | Name of the script. Should be unique. |
+| `$src` | `string` | Path to script relative to the theme directory. |
+| `$deps` | `string[]` |  Optional, default `[]`. An array of registered script handles on which this script depends. |
+| `$in_footer` | `bool` | Optional, default `false`. Whether to enqueue the script before </body> instead of in the <head>. |
+
+* Enqueue two scripts located at `assets/vendor.js` and `assets/scripts.js` with dependencies.
+```php
+ep_enqueue_script('vendor-scripts', 'dist/vendor.js');
+ep_enqueue_script('theme-scripts', 'dist/scripts.js', [ 'vendor-scripts' ], true);
+```
 
 ## Changelog
 
