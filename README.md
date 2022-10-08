@@ -18,6 +18,7 @@ Enhanced functions and settings for WordPress
 - [Scripts](#scripts)
   - [Enqueue Style](#enqueue-style)
   - [Enqueue Script](#enqueue-script)
+  - [Localize Script](#localize-script)
 - [Changelog](#changelog)
 
 ## Installation
@@ -234,7 +235,7 @@ The `ep_enqueue_style()` function takes arguments very similar to the built-in `
 | --------- | ---- | ----------- |
 | `$handle` | `string` | Name of the stylesheet. Should be unique. |
 | `$src` | `string` | Path to stylesheet relative to the theme directory. |
-| `$deps` | `string[]` |  Optional, default `[]`. An array of registered stylesheet handles on which this stylesheet depends. |
+| `$deps` | `string[]` | Optional, default `[]`. An array of registered stylesheet handles on which this stylesheet depends. |
 | `$media` | `string` | Optional, default `all`. The media for which this stylesheet has been defined. |
 
 * Enqueue a stylesheet located at `assets/styles.css` within your theme directory.
@@ -249,13 +250,30 @@ The `ep_enqueue_script()` function takes arguments very similar to the built-in 
 | --------- | ---- | ----------- |
 | `$handle` | `string` | Name of the script. Should be unique. |
 | `$src` | `string` | Path to script relative to the theme directory. |
-| `$deps` | `string[]` |  Optional, default `[]`. An array of registered script handles on which this script depends. |
+| `$deps` | `string[]` | Optional, default `[]`. An array of registered script handles on which this script depends. |
 | `$in_footer` | `bool` | Optional, default `false`. Whether to enqueue the script before </body> instead of in the <head>. |
 
 * Enqueue two scripts located at `assets/vendor.js` and `assets/scripts.js` with dependencies.
 ```php
 ep_enqueue_script('vendor-scripts', 'dist/vendor.js');
 ep_enqueue_script('theme-scripts', 'dist/scripts.js', [ 'vendor-scripts' ], true);
+```
+
+### Localize Script
+Instead of improperly using the built-in `wp_localize_script()` to add JSON data for front-end scripts, we provide `ep_localize_script()` which does the same, without warnings. The built-in `wp_localize_script()` has several caveats including casting all top-level keys to strings and causes issues when trying to pass booleans or numbers to front-end scripts.
+
+| Parameter | Type | Description |
+| --------- | ---- | ----------- |
+| `$handle` | `string` | Script handle the data will be attached to. |
+| `$object_name` | `string` | Name for the JavaScript object. Passed directly, so it should be qualified JS variable. |
+| `$data` | `array` | The data itself. The data can be either a single or multi-dimensional array. |
+
+* Add data to front-end script.
+```php
+ep_localize_script('theme-scripts', 'theme_settings', [
+  'is_awesome' => true,
+  'important_number' => 42
+]);
 ```
 
 ## Changelog
