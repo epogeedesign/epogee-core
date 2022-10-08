@@ -12,6 +12,8 @@ Enhanced functions and settings for WordPress
   - [Term Object](#term-object)
   - [Get Term](#get-term)
   - [Get Terms](#get-terms)
+  - [Format Terms](#format-terms)
+  - [Filter Terms](#filter-terms)
 - [Templates](#templates)
   - [Locate Template](#locate-template)
   - [Parse Arguments](#parse-arguments)
@@ -179,7 +181,7 @@ Use the function `ep_get_term($term)` to get a fully-formed term object. See exa
 | Parameter | Type | Description |
 | --------- | ---- | ----------- |
 | `$term` | `WP_Term` &#124; `int` | WordPress term object or term id. |
-| `$meta` | `bool` &#124; `string[]` | Optional, default `false`. Post Meta keys to include. |
+| `$meta` | `bool` &#124; `string[]` | Optional, default `false`. Term Meta keys to include. |
 | `$fields` | `bool` &#124; `string[]` | Optional, default `false`. ACF custom field names to include. |
 
 * Getting `$category` on `taxonomy.php` or `index.php` using `get_queried_object_id`.
@@ -190,6 +192,12 @@ $category = ep_get_term(get_queried_object_id());
 ### Get Terms
 Fully-formed term objects can be retrieved directly using the function `ep_get_terms($args)` which supports the same options as the native `get_terms()`.
 
+| Parameter | Type | Description |
+| --------- | ---- | ----------- |
+| `$args` | `array` | [WP_Term_Query](https://developer.wordpress.org/reference/classes/WP_Term_Query/__construct) args. |
+| `$meta` | `bool` &#124; `string[]` | Optional, default `false`. Term Meta keys to include. |
+| `$fields` | `bool` &#124; `string[]` | Optional, default `false`. ACF custom field names to include. |
+
 * Get a collection of fully-formed `$categories` with query arguments.
 ```php
 $categories = ep_get_terms([
@@ -197,6 +205,52 @@ $categories = ep_get_terms([
   'orderby' => 'name',
   'order' => 'ASC'
 ]);
+```
+
+### Format Terms
+Sometimes there is already an array of WP Terms, this can be formatted to fully-formed term objects by using the `ep_format_terms($terms)` function.
+
+| Parameter | Type | Description |
+| --------- | ---- | ----------- |
+| `$terms` | `int[]` &#124; `WP_Term[]` | Array of term ids or [WP_Term](https://developer.wordpress.org/reference/classes/wp_term) objects. |
+| `$meta` | `bool` &#124; `string[]` | Optional, default `false`. Term Meta keys to include. |
+| `$fields` | `bool` &#124; `string[]` | Optional, default `false`. ACF custom field names to include. |
+
+* Get a collection of fully-formed `$categories` from array of `$termIds`.
+```php
+$termIds = [42, 86, 99];
+$categories = ep_format_terms($termIds);
+```
+
+### Filter Terms
+All Epogee Core term functions support various filters to manage the `$meta` and `$fields` that will be returned in addition to the final fully-formed term object itself.
+
+* `ep/terms/meta` - Applies to `$meta` for all terms.
+* `ep/terms/meta/{$taxonomy}` - Applies to `$meta` for a term taxonomy.
+* `ep/terms/fields` - Applies to `$fields` for all terms.
+* `ep/terms/fields/{$taxonomy}` - Applies to `$fields` for a term taxonomy.
+
+Fully-formed term filters:
+* `ep/terms/get` - Applies to `$term` for all terms.
+* `ep/terms/get/{$taxonomy}` - Applies to `$term` for a term taxonomy.
+
+Examples:
+
+* Filter `$fields` for all `category` taxonomy terms to include `image` custom field.
+```php
+add_filter('ep/terms/fields/category', function ($fields, $term) {
+  return ['image'];
+}, 10, 2);
+```
+
+* Filter fully-formed `$term` to customize the object for all taxonomies.
+```php
+add_filter('ep/terms/get', function ($term) {
+  // Capitalize the term name
+  $term->name = strtoupper($term->name);
+
+  return $term;
+}, 10, 1);
 ```
 
 ## Templates
