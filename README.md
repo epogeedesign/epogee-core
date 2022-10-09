@@ -16,6 +16,7 @@ Enhanced functions and settings for WordPress
   - [Filter Terms](#filter-terms)
 - [Templates](#templates)
   - [Locate Template](#locate-template)
+  - [Filter Templates](#filter-templates)
   - [Parse Arguments](#parse-arguments)
 - [Scripts](#scripts)
   - [Enqueue Style](#enqueue-style)
@@ -264,11 +265,41 @@ WordPress template functions are a bit all over the place. Epogee Core provides 
 | `$load` | `bool` | Optional, default `false`. If true the template file will be loaded if it is found. |
 | `$args` | `array` | Optional, default `[]`. Additional arguments passed to the template. |
 
-* Loading `parts/template.php` located in the theme root with `$args`.
+* Loading `parts/site-header.php` located in the theme root with `$args`.
 ```php
-ep_locate_template('parts/template', true, [
+ep_locate_template('parts/site-header', true, [
   'title' => 'My Awesome Website'
 ]);
+```
+
+### Filter Templates
+The `ep_locate_template()` function supports filtering the `$args` pass to the template.
+
+* `ep/template` - Applies to `$args` for all templates.
+* `ep/template/{$template}` - Applies to `$args` passed to a template file.
+
+Examples:
+
+* Filter `$args` for all templates.
+```php
+add_filter('ep/template', function ($args) {
+  // Add title if missing
+  if (!isset($args['title'])) {
+    $args['title'] = 'My Default Website';
+  }
+
+  return $args;
+}, 10, 1);
+```
+
+* Filter `$args` for `parts/site-header.php`.
+```php
+add_filter('ep/template/parts/site-header', function ($args) {
+  // Change the title
+  $args['title'] = 'My Super-Awesome Website';
+
+  return $args;
+}, 10, 1);
 ```
 
 ### Parse Arguments
