@@ -64,7 +64,8 @@ function ep_locate_template($templates, $load = false, $args = []) {
 
 		// Apply filters on the template args
 		if ($located_template) {
-			$args = apply_filters('ep/template/' . $located_template, $args);
+			$args = apply_filters('ep/template', $args, $located_template);
+			$args = apply_filters('ep/template/' . $located_template, $args, $located_template);
 		}
 
 		load_template($located, false, $args);
