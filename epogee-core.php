@@ -3,7 +3,7 @@
  * Plugin Name:  Epogee Core
  * Plugin URI:   https://github.com/epogeedesign/epogee-core
  * Description:  Enhanced functions and settings for WordPress.
- * Version:      1.1.0
+ * Version:      1.1.1
  * Author:       Epogee Design
  * Author URI:   https://epogeedesign.com/
  */
