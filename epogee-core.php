@@ -46,3 +46,8 @@ require_once 'inc/options/options.inc.php';
 
 // Custom Fields Types
 require_once 'inc/fields/fields.inc.php';
+
+// Signal Init
+add_action('init', function () { 
+	do_action('ep/init');
+}, 10, 0);
