@@ -363,7 +363,13 @@ ep_localize_script('theme-scripts', 'theme_settings', [
 
 ## Changelog
 
-### 1.1.0 (current)
+### 1.1.1 (current)
+* Add `ep/init` action
+* Add sitemap functions: `ep_sitemap_for_posts()`, `ep_sitemap_for_taxonomies()`, `ep_sitemap_to_tree()`, `ep_sitemap_to_html()`
+* Add post function `ep_post_excerpt()`
+* Fix breadcrumbs to check Yoast noindex meta
+
+### 1.1.0
 * Add GitHub plugin updates
 * Add term function `ep_format_terms()`
 * Cleanup term and post functions
