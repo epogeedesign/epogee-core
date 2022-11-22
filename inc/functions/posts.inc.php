@@ -234,8 +234,9 @@ function ep_numeric_posts_nav() {
 
 function ep_post_breadcrumbs(Ep_Abstract_Post $post, $include_current = true) {
 	$breadcrumbs = $post->parent ? ep_post_breadcrumbs(ep_get_post($post->parent)) : [];
+	$visible = get_post_meta($post->id, '_yoast_wpseo_meta-robots-noindex', true) != '1';
 
-	if ($include_current) {
+	if ($include_current && $visible && $post->status == 'publish') {
 		$breadcrumbs[] = [
 			'text' => $post->title,
 			'href' => $post->url
