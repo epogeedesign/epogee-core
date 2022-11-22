@@ -71,6 +71,13 @@ function ep_locate_template($templates, $load = false, $args = []) {
 		load_template($located, false, $args);
 	}
 
+	// Check for error in locating template
+	if (empty($located)) {
+		foreach ($templates as $template) {
+			error_log(sprintf('Could not locate template: `%s`', $template));
+		}
+	}
+
 	// Return the located template if any
 	return $located;
 }
