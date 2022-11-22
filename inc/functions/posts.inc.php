@@ -244,3 +244,18 @@ function ep_post_breadcrumbs(Ep_Abstract_Post $post, $include_current = true) {
 
 	return $breadcrumbs;
 }
+
+function ep_post_excerpt(Ep_Abstract_Post $post, $length = 55) {
+	// Check if post already has an excerpt
+	if (has_excerpt($post->id)) {
+		return $post->excerpt;
+	}
+
+	// Check if post type supports excerpts
+	if (!post_type_supports($post->type, 'excerpt')) {
+		return '';
+	}
+
+	// Generate the excerpt using filters on content
+	return wp_trim_words(strip_shortcodes(wp_strip_all_tags($post->content, true)), $length);
+}
