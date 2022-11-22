@@ -30,6 +30,7 @@ require_once 'inc/functions/posts.inc.php';
 require_once 'inc/functions/terms.inc.php';
 require_once 'inc/functions/imgix.inc.php';
 require_once 'inc/functions/yoast.inc.php';
+require_once 'inc/functions/sitemap.inc.php';
 
 // WordPress Filters
 require_once 'inc/filters/updates.inc.php';
